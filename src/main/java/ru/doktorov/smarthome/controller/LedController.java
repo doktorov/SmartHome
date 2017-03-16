@@ -1,10 +1,11 @@
-package ru.doktorov.smarthome.controller;
+package main.java.ru.doktorov.smarthome.controller;
 
 import com.pi4j.io.gpio.*;
 import java.util.BitSet;
+
+import main.java.ru.doktorov.smarthome.rf.RCSwitch;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.doktorov.smarthome.rf.RCSwitch;
 
 @RestController
 public class LedController {
