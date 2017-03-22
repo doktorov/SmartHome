@@ -23,7 +23,7 @@
  * MA 02110-1301  USA
  */
 
-package main.java.ru.doktorov.smarthome.rf;
+package ru.doktorov.smarthome.rf;
 
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;

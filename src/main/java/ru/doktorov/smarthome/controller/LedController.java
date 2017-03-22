@@ -1,15 +1,17 @@
-package main.java.ru.doktorov.smarthome.controller;
+package ru.doktorov.smarthome.controller;
 
 import com.pi4j.io.gpio.*;
 import java.util.BitSet;
 
-import main.java.ru.doktorov.smarthome.rf.RCSwitch;
+import ru.doktorov.smarthome.rf.RCSwitch;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.doktorov.smarthome.rf.DHT11;
 
 @RestController
 public class LedController {
 
+    private static GpioPinDigitalOutput mPin03;
     private static GpioPinDigitalOutput mPin01;
     private static GpioPinDigitalOutput mPin07;
 
@@ -64,5 +66,21 @@ public class LedController {
         gpio.shutdown();
 
         return "switchOff";
+    }
+    
+    @RequestMapping("/dht11")
+    public String dht11() {       
+        GpioController gpio = GpioFactory.getInstance();       
+
+        if (mPin03 == null) {
+            mPin03 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_03, "MyLED", PinState.LOW);
+        }
+        
+        DHT11 transmitter = new DHT11(mPin03);
+
+        
+        gpio.shutdown();
+
+        return "dht11";
     }
 }
