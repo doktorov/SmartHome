@@ -103,6 +103,40 @@ public class LedController {
         
         gpio.shutdown();
 
-        return "switchOff";
+        return "connectToRelay";
+    }
+
+    @RequestMapping("/relayOn")
+    public String relayOn() {
+        GpioController gpio = GpioFactory.getInstance();
+
+        if (mPin07 == null) {
+            mPin07 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_07, "MyLED", PinState.LOW);
+        }
+
+        BitSet address = RCSwitch.getSwitchGroupAddress("00001");
+
+        RCSwitch transmitter = new RCSwitch(mPin07);
+        transmitter.switchOn(address, 1);
+        gpio.shutdown();
+
+        return "relayOn";
+    }
+
+    @RequestMapping("/relayOff")
+    public String relayOff() {
+        GpioController gpio = GpioFactory.getInstance();
+
+        if (mPin07 == null) {
+            mPin07 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_07, "MyLED", PinState.LOW);
+        }
+
+        BitSet address = RCSwitch.getSwitchGroupAddress("00001");
+
+        RCSwitch transmitter = new RCSwitch(mPin07);
+        transmitter.switchOff(address, 1);
+        gpio.shutdown();
+
+        return "relayOff";
     }
 }
