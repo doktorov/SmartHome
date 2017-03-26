@@ -83,4 +83,26 @@ public class LedController {
 
         return "dht11";
     }
+    
+    @RequestMapping("/connectToRelay")
+    public String connectToRelay() throws InterruptedException {
+        GpioController gpio = GpioFactory.getInstance();       
+
+        if (mPin07 == null) {
+            mPin07 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_07, "MyLED", PinState.LOW);
+        }
+        
+        BitSet address = RCSwitch.getSwitchGroupAddress("00001");
+        
+        RCSwitch transmitter = new RCSwitch(mPin07);
+        transmitter.switchOn(address, 1);
+        
+        Thread.sleep(2000);
+        
+        transmitter.switchOff(address, 1);
+        
+        gpio.shutdown();
+
+        return "switchOff";
+    }
 }
