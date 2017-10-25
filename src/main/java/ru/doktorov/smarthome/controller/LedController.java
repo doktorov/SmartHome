@@ -40,10 +40,11 @@ public class LedController {
             mPin07 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_07, "MyLED", PinState.LOW);
         }
         
-        BitSet address = RCSwitch.getSwitchGroupAddress("11111");
-        
         RCSwitch transmitter = new RCSwitch(mPin07);
-        transmitter.switchOn(address, 3);
+        
+        //BitSet address = RCSwitch.getSwitchGroupAddress("11111");        
+        //transmitter.switchOn(address, 3);
+        transmitter.send(1814696, 24);
         
         gpio.shutdown();
 
@@ -58,10 +59,11 @@ public class LedController {
             mPin07 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_07, "MyLED", PinState.LOW);
         }
         
-        BitSet address = RCSwitch.getSwitchGroupAddress("11111");
-        
         RCSwitch transmitter = new RCSwitch(mPin07);
-        transmitter.switchOff(address, 3);
+        
+        //BitSet address = RCSwitch.getSwitchGroupAddress("11111");
+        //transmitter.switchOff(address, 3);
+        transmitter.send(1814692, 24);
         
         gpio.shutdown();
 

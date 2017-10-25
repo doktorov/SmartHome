@@ -291,5 +291,29 @@ public class RCSwitch {
         }
         return bitSet;
     }
+    
+    /**
+    * Transmit the first 'length' bits of the integer 'code'. The
+    * bits are sent from MSB to LSB, i.e., first the bit at position length-1,
+    * then the bit at position length-2, and so on, till finally the bit at position 0.
+    * 
+    *  @code
+    *  @length
+    */
+    public void send(long code, int length) {
+        if (this.transmitterPin == null) {
+              return;
+        }
 
+        for (int nRepeat = 0; nRepeat < repeatTransmit; nRepeat++) {
+            for (int i = length - 1; i>= 0; i--) {
+                if ((code & (1L << i)) != 0 ) {
+                    this.sendT1();
+                } else {
+                    this.sendT0();
+                }
+            }
+          this.sendSync();
+        }
+    }
 }
